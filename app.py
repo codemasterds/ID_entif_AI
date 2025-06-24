@@ -1,7 +1,13 @@
+import os
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
+
 import numpy as np
 import cv2 as cv
 from utils.recognize import detect_faces
 from utils.match import compare_faces
+
+
+
 
 def main():
     cap = cv.VideoCapture(0)
@@ -33,14 +39,14 @@ def main():
                 print("❗️Please hold ID next to your face. Need exactly 2 faces.")
                 continue
         
-            live_path = r"live_face.jpg"
-            id_path = r"id_face.jpg"
+            live_path = r"S:\python projects\Id_entif_AI\live_face.jpg"
+            id_path = r"S:\python projects\Id_entif_AI\id_face.jpg"
             cv.imwrite(live_path, cv.cvtColor(faces[0], cv.COLOR_RGB2BGR))
             cv.imwrite(id_path, cv.cvtColor(faces[1], cv.COLOR_RGB2BGR))
             print("Saved images")
             # Match
             print("🔍 Comparing faces...")
-            verified, distance = compare_faces(live_path, id_path)    
+            verified, distance = compare_faces(live_path,id_path)    #live_path, id_path
             if verified:
                 print(f"✅ MATCH (distance={distance:.4f})")
             else:
@@ -55,4 +61,5 @@ def main():
     
     
 if __name__=="__main__":
+
     main()
